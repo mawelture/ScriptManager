@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mx.dao.IQQDao">
+
+    <update id="update">
+        update qq
+           set `password`=#{password},
+               `mobile`=#{mobile},
+               `password_on_buying`=#{password_on_buying},
+               `secure_question_1`=#{secure_question_1},
+               `secure_answer_1`= #{secure_answer_1},
+               `secure_question_2`=#{secure_question_2},
+               `secure_answer_2`=#{secure_answer_2},
+               `secure_question_3`=#{secure_question_3},
+               `secure_answer_3`=#{secure_answer_3}
+         where `qq`=#{qq}
+    </update>
+
+    <delete id="delete">
+        delete from `qq` where `qq` = #{qq}
+    </delete>
+
+    <insert id="insert" >
+        insert into `qq`( `qq`, `password`, `mobile`, `password_on_buying`, `secure_question_1`, `secure_answer_1`,
+          `secure_question_2`, `secure_answer_2`, `secure_question_3`, `secure_answer_3` )
+        values( #{qq}, #{password}, #{mobile}, #{password_on_buying}, #{secure_question_1}, #{secure_answer_1},
+          #{secure_question_2}, #{secure_answer_2}, #{secure_question_3}, #{secure_answer_3} )
+    </insert>
+
+    <select id="getById" resultType="com.mx.entity.QQ">
+        select * from qq where qq = #{id}
+    </select>
+
+    <resultMap id="allEentries" type="com.mx.entity.QQ">
+        <id column="qq" property="qq" />
+        <result column="password" property="password" />
+        <result column="mobile" property="mobile" />
+        <result column="password_on_buying" property="password_on_buying" />
+        <result column="secure_question_1" property="secure_question_1" />
+        <result column="secure_answer_1" property="secure_answer_1" />
+        <result column="secure_question_2" property="secure_question_2" />
+        <result column="secure_answer_2" property="secure_answer_2" />
+        <result column="secure_question_3" property="secure_question_3" />
+        <result column="secure_answer_3" property="secure_answer_3" />
+    </resultMap>
+
+    <select id="getAllEntries" resultMap="allEentries">
+        select * from qq
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+

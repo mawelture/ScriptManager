@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mx.dao.IMachineDao">
+
+    <update id="update">
+        update machine
+           set `qq`=#{qq.qq},
+               `script_code`=#{script_code}
+         where `machine_number`=#{machine_number}
+    </update>
+
+    <delete id="delete">
+        delete from `machine` where `machine_number` = #{machine_number}
+    </delete>
+
+    <insert id="insert" >
+        insert into `machine`( `machine_number`, `qq`, `script_code`)
+        values( #{machine_number}, #{qq.qq}, #{script_code})
+    </insert>
+
+
+    <resultMap id="allEentries" type="com.mx.entity.Machine">
+        <id column="machine_number" property="machine_number" />
+        <result column="script_code" property="script_code" />
+        <result column="qq" property="qq.qq" />
+        
+        <association property="qq" select="com.mx.dao.IMachineDao.getById" column="number" />
+    </resultMap>
+
+    <select id="getById" resultMap="allEentries">
+        select * from machine where machine_number = #{id}
+    </select>
+
+    <select id="getAllEntries" resultMap="allEentries">
+        select m.*, qq.qq number, qq.password, qq.mobile, qq.password_on_buying,
+               qq.secure_question_1, qq.secure_answer_1,
+               qq.secure_question_2, qq.secure_answer_2,
+               qq.secure_question_3, qq.secure_answer_3
+          from machine m, qq where m.qq = qq.qq
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
